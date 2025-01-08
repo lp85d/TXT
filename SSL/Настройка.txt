@@ -13,3 +13,6 @@ certbot certonly --webroot -w "E:\OSPanel\home\dkscapital.ru" -d dkscapital.ru -
 
 Вот как правильно:
 certbot certonly --webroot -w E:/OSPanel/home/dkscapital.ru -d dkscapital.ru -d www.dkscapital.ru
+А ещё отключите или настройте плагин elementor так как он может вызывать ошибку
+dkscapital.ru
+Обнаружено трекеров Google: 1 (заблокировано: 1)
