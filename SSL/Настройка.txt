@@ -1,0 +1,12 @@
+Инструкиця как получить сертификаты SSL
+Для начала поднимем сайт на 80 порту
+Пробрасываем ip адрес до домена делегированием https://biz.mail.ru/domains/dkscapital.ru/dns/
+Затем заводим два файла пример в папке Конфиг До
+E:\OSPanel\home\dkscapital.ru\.osp\project.ini
+E:\OSPanel\home\dkscapital.ru\.osp\nginx\dkscapital.ru.conf
+Запускаем генерацию ключей
+C:\Windows\System32>cd E:\Certbot\bin
+certbot certonly --webroot -w "E:\OSPanel\home\dkscapital.ru" -d dkscapital.ru -v
+Выдёргиваем файлы из C:\Certbot\archive\dkscapital.ru
+И закидываем куда хотим, вот пример в папке Конфиг После
+Перезагружаем сервер и готово!
