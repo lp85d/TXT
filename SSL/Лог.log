@@ -1,0 +1,88 @@
+E:\Certbot\bin>dir
+ Том в устройстве E не имеет метки.
+ Серийный номер тома: 02EC-08F4
+
+ Содержимое папки E:\Certbot\bin
+
+03.01.2025  15:57    <DIR>          .
+03.01.2025  16:00    <DIR>          ..
+03.01.2025  15:59    <DIR>          certbot-env
+08.02.2024  23:49           109 112 certbot.exe
+03.08.2024  13:38           764 971 roots.sst
+               2 файлов        874 083 байт
+               3 папок  112 327 311 360 байт свободно
+
+E:\Certbot\bin>certbot certonly --webroot -w E:/OSPanel/home/dkscapital.ru -d dkscapital.ru -d www.dkscapital.ru
+Saving debug log to C:\Certbot\log\letsencrypt.log
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+You have an existing certificate that contains a portion of the domains you
+requested (ref: C:\Certbot\renewal\dkscapital.ru.conf)
+
+It contains these names: dkscapital.ru
+
+You requested these names for the new certificate: dkscapital.ru,
+www.dkscapital.ru.
+
+Do you want to expand and replace this existing certificate with the new
+certificate?
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+(E)xpand/(C)ancel: E
+Renewing an existing certificate for dkscapital.ru and www.dkscapital.ru
+
+Successfully received certificate.
+Certificate is saved at: C:\Certbot\live\dkscapital.ru\fullchain.pem
+Key is saved at:         C:\Certbot\live\dkscapital.ru\privkey.pem
+This certificate expires on 2025-04-08.
+These files will be updated when the certificate renews.
+Certbot has set up a scheduled task to automatically renew this certificate in the background.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+If you like Certbot, please consider supporting our work by:
+ * Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
+ * Donating to EFF:                    https://eff.org/donate-le
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+E:\Certbot\bin>certbot certificates
+Saving debug log to C:\Certbot\log\letsencrypt.log
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Found the following certs:
+  Certificate Name: dkscapital.ru
+    Serial Number: 48671ff3f60cece5a5ac45ab8177b069585
+    Key Type: ECDSA
+    Domains: dkscapital.ru www.dkscapital.ru
+    Expiry Date: 2025-04-08 06:21:17+00:00 (VALID: 89 days)
+    Certificate Path: C:\Certbot\live\dkscapital.ru\fullchain.pem
+    Private Key Path: C:\Certbot\live\dkscapital.ru\privkey.pem
+  Certificate Name: fingerbot.ru
+    Serial Number: 4734d3973395fed53512c2d3b08af0149ac
+    Key Type: ECDSA
+    Domains: fingerbot.ru
+    Expiry Date: 2024-11-19 05:18:47+00:00 (INVALID: EXPIRED)
+    Certificate Path: C:\Certbot\live\fingerbot.ru\fullchain.pem
+    Private Key Path: C:\Certbot\live\fingerbot.ru\privkey.pem
+  Certificate Name: getleads.red
+    Serial Number: 461f6b7659371a3d601ec2b1692497c7222
+    Key Type: ECDSA
+    Domains: getleads.red
+    Expiry Date: 2025-04-06 14:35:36+00:00 (VALID: 88 days)
+    Certificate Path: C:\Certbot\live\getleads.red\fullchain.pem
+    Private Key Path: C:\Certbot\live\getleads.red\privkey.pem
+  Certificate Name: lp85d.ru
+    Serial Number: 33c22e55a7220c5b8b9020ee247f566154a
+    Key Type: ECDSA
+    Domains: lp85d.ru
+    Expiry Date: 2024-12-15 06:03:31+00:00 (INVALID: EXPIRED)
+    Certificate Path: C:\Certbot\live\lp85d.ru\fullchain.pem
+    Private Key Path: C:\Certbot\live\lp85d.ru\privkey.pem
+  Certificate Name: parspost.ru
+    Serial Number: 4bfaad41f982d8dc82cc6746cc53b174bdf
+    Key Type: ECDSA
+    Domains: parspost.ru
+    Expiry Date: 2025-03-07 01:56:55+00:00 (VALID: 57 days)
+    Certificate Path: C:\Certbot\live\parspost.ru\fullchain.pem
+    Private Key Path: C:\Certbot\live\parspost.ru\privkey.pem
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+E:\Certbot\bin>
