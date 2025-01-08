@@ -10,3 +10,6 @@ certbot certonly --webroot -w "E:\OSPanel\home\dkscapital.ru" -d dkscapital.ru -
 Выдёргиваем файлы из C:\Certbot\archive\dkscapital.ru
 И закидываем куда хотим, вот пример в папке Конфиг После
 Перезагружаем сервер и готово!
+
+Вот как правильно:
+certbot certonly --webroot -w E:/OSPanel/home/dkscapital.ru -d dkscapital.ru -d www.dkscapital.ru
