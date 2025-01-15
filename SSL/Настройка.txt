@@ -1,18 +1,15 @@
 Инструкиця как получить сертификаты SSL
 Для начала поднимем сайт на 80 порту
-Пробрасываем ip адрес до домена делегированием https://biz.mail.ru/domains/dkscapital.ru/dns/
+Пробрасываем ip адрес до домена делегированием https://biz.mail.ru/domains/dictovod.ru/dns/
 Затем заводим два файла пример в папке Конфиг До
-E:\OSPanel\home\dkscapital.ru\.osp\project.ini
-E:\OSPanel\home\dkscapital.ru\.osp\nginx\dkscapital.ru.conf
+E:\OSPanel\home\dictovod.ru\.osp\project.ini
+E:\OSPanel\home\dictovod.ru\.osp\nginx\dictovod.ru.conf
 Запускаем генерацию ключей
 C:\Windows\System32>cd E:\Certbot\bin
-certbot certonly --webroot -w "E:\OSPanel\home\dkscapital.ru" -d dkscapital.ru -v
-Выдёргиваем файлы из C:\Certbot\archive\dkscapital.ru
-И закидываем куда хотим, вот пример в папке Конфиг После
+certbot certonly --webroot -w "E:\OSPanel\home\dictovod.ru" -d dictovod.ru -v
+Зменим конфиг из папки Конфиг После
 Перезагружаем сервер и готово!
 
-Вот как правильно:
-certbot certonly --webroot -w E:/OSPanel/home/dkscapital.ru -d dkscapital.ru -d www.dkscapital.ru
-А ещё отключите или настройте плагин elementor так как он может вызывать ошибку
-dkscapital.ru
-Обнаружено трекеров Google: 1 (заблокировано: 1)
+certbot certonly --webroot -w "E:\OSPanel\home\dictovod.ru" -d dictovod.ru -v
+certbot certonly --webroot -w E:/OSPanel/home/dictovod.ru -d dictovod.ru -d www.dictovod.ru
+cd E:\Certbot\bin
