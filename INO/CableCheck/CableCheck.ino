@@ -7,8 +7,8 @@ const char* password = "84338839";
 
 // Пин для проверки кабеля
 #define PROBE_PIN 23
-unsigned long MAX_DISCHARGE_TIME = 5000; // Максимальное время ожидания разрядки
-unsigned long THRESHOLD = 6200;          // Порог времени разряда
+unsigned long MAX_DISCHARGE_TIME = 3950; // Максимальное время ожидания разрядки
+unsigned long THRESHOLD = 5000;          // Порог времени разряда
 
 // Создаем объект веб-сервера
 AsyncWebServer server(80);
@@ -166,7 +166,7 @@ void loop() {
     lastCheck = millis(); // Сброс таймера
     
     unsigned long chargeTime = measureCapacitance();
-    String status = (chargeTime > THRESHOLD) ? "Yes" : "No";
+    String status = (chargeTime > THRESHOLD) ? "No" : "Yes";
     Serial.println(status); // Вывод статуса в Serial Monitor
     addLog(status, statusLog);
   }
