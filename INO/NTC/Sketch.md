@@ -7,3 +7,4 @@
 B-коэффициент: 3950 К (в пределах от 25°C до 85°C).  
 Диапазон температур: Обычно от -40°C до +125°C.  
 ![image](https://github.com/user-attachments/assets/b1bf66de-e53d-4cc3-b8ab-b89e9b0a9a06)
+![image](https://github.com/user-attachments/assets/e17da080-c87e-4609-bd21-3c36f410d153)
