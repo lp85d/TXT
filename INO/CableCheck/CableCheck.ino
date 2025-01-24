@@ -7,8 +7,8 @@ const char* password = "84338839";
 
 // Пин для проверки кабеля
 #define PROBE_PIN 23
-unsigned long MAX_DISCHARGE_TIME = 10000; // Максимальное время ожидания разрядки
-unsigned long THRESHOLD = 2000;          // Порог времени разряда
+unsigned long MAX_DISCHARGE_TIME = 5000; // Максимальное время ожидания разрядки
+unsigned long THRESHOLD = 6200;          // Порог времени разряда
 
 // Создаем объект веб-сервера
 AsyncWebServer server(80);
@@ -18,10 +18,14 @@ String statusLog = "";     // Логи статусов
 // Лимит строк логов
 const int MAX_LOG_LINES = 20;
 
+// Таймер для проверки кабеля
+unsigned long lastCheck = 0;
+const unsigned long CHECK_INTERVAL = 1000; // Check every second
+
 // Функция добавления логов
 void addLog(String message, String &logBuffer) {
   String logEntry = "[" + String(millis() / 1000) + "s] " + message + "\n";
-  logBuffer += logEntry;
+  logBuffer = logEntry + logBuffer; // Add new log at the top for correct display order
 
   // Удаляем старые строки, если они превышают лимит
   int lineCount = 0;
@@ -29,8 +33,8 @@ void addLog(String message, String &logBuffer) {
     if (logBuffer[i] == '\n') lineCount++;
   }
   while (lineCount > MAX_LOG_LINES) {
-    int firstNewline = logBuffer.indexOf('\n');
-    logBuffer = logBuffer.substring(firstNewline + 1);
+    int lastNewline = logBuffer.lastIndexOf('\n');
+    logBuffer = logBuffer.substring(0, lastNewline);
     lineCount--;
   }
 }
@@ -157,10 +161,15 @@ void setup() {
 }
 
 void loop() {
-  // Обновление логов статуса
-  unsigned long chargeTime = measureCapacitance();
-  String status = (chargeTime > THRESHOLD) ? "Кабель наращен!" : "Кабель в норме.";
-  addLog(status, statusLog);
+  // Проверка кабеля раз в секунду
+  if (millis() - lastCheck >= CHECK_INTERVAL) {
+    lastCheck = millis(); // Сброс таймера
+    
+    unsigned long chargeTime = measureCapacitance();
+    String status = (chargeTime > THRESHOLD) ? "Yes" : "No";
+    Serial.println(status); // Вывод статуса в Serial Monitor
+    addLog(status, statusLog);
+  }
 }
 
 // Функция измерения времени разряда
