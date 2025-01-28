@@ -1,1 +1,2 @@
 dir /s /b
+pyinstaller --onefile --noconsole ScreenCaptureClient.py
