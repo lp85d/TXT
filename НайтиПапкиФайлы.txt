@@ -1,3 +1,6 @@
 dir /s /b
 pyinstaller --onefile --noconsole ScreenCaptureClient.py
-[^\x00-\x7F] удалить все не-ASCII Regular "Вид" "Отображение символов"
+
+Regular
+[^\x00-\x7F] удалить все не-ASCII "Вид" "Отображение символов"
+(http[s]?:\/\/t\.me/[^\s]+) выделить все TG ссылки
