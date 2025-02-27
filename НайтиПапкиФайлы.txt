@@ -1,5 +1,9 @@
 dir /s /b
 dir /a
+dir /ad
+dir /b
+tree /f
+
 pyinstaller --onefile --noconsole ScreenCaptureClient.py
 
 Regular
