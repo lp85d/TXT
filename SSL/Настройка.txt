@@ -6,6 +6,7 @@ E:\OSPanel\home\dictovod.ru\.osp\project.ini
 E:\OSPanel\home\dictovod.ru\.osp\nginx\dictovod.ru.conf
 Запускаем генерацию ключей
 C:\Windows\System32>cd E:\Certbot\bin
+C:\Windows\System32>E:
 certbot certonly --webroot -w "E:\OSPanel\home\dictovod.ru" -d dictovod.ru -v
 Зменим конфиг из папки Конфиг После
 Перезагружаем сервер и готово!
