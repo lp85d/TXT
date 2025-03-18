@@ -1,4 +1,5 @@
 dir /s /b
+CLS
 dir /s /b "C:\Users\user\Desktop\AndroidUiRenderer" > "C:\Users\user\Desktop\AndroidUiRenderer\files_path.txt"
 dir /a
 dir /ad
