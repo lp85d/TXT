@@ -14,3 +14,5 @@ Regular
 
 C:\Users\%USERNAME%\AppData\Local\Programs\Python\  
 python -m pip install opencv-python websocket-client numpy
+
+Скачать сайт wget --mirror --convert-links --adjust-extension --page-requisites --no-parent https://site.ru/
