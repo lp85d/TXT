@@ -1,0 +1,37 @@
+https://transformator.pw/ сделал и без консоли 
+И на своём сервере без делегирования
+Короче я запустил так
+D:\Certbot\bin>certbot certonly --manual --preferred-challenges http -d transformator.pw
+Saving debug log to C:\Certbot\log\letsencrypt.log
+Requesting a certificate for transformator.pw
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Create a file containing just this data:
+
+Sh93xIowGHgjIK6HZq3Ban1-i1R5RBd287PvsAKBCcI.U-ZGnfSSxKu0M7Hrx9fKNHIud_0jr1OTpk5660GOdik
+
+And make it available on your web server at this URL:
+
+http://transformator.pw/.well-known/acme-challenge/Sh93xIowGHgjIK6HZq3Ban1-i1R5RBd287PvsAKBCcI
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Press Enter to Continue
+
+Successfully received certificate.
+Certificate is saved at: C:\Certbot\live\transformator.pw\fullchain.pem
+Key is saved at:         C:\Certbot\live\transformator.pw\privkey.pem
+This certificate expires on 2025-07-22.
+These files will be updated when the certificate renews.
+
+NEXT STEPS:
+- This certificate will not be renewed automatically. Autorenewal of --manual certificates requires the use of an authentication hook script (--manual-auth-hook) but one was not provided. To renew this certificate, repeat this same certbot command before the certificate's expiry date.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+If you like Certbot, please consider supporting our work by:
+ * Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
+ * Donating to EFF:                    https://eff.org/donate-le
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+D:\Certbot\bin>
+
+И так как доступ был к папке сертификат я получил к себе на сервер и просто его скопировал в его сервер
