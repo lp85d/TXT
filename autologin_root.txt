@@ -1,0 +1,28 @@
+# Создать пользователя user
+adduser user
+
+# Добавить пользователя user в sudoers без запроса пароля
+echo "user ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/user-nopasswd
+chmod 440 /etc/sudoers.d/user-nopasswd
+
+# Настроить автологин LightDM под user
+cat > /etc/lightdm/lightdm.conf <<EOF
+[Seat:*]
+autologin-user=user
+autologin-user-timeout=0
+autologin-session=xfce
+greeter-hide-users=true
+greeter-show-manual-login=false
+allow-guest=false
+EOF
+
+# Создать .xprofile для user, чтобы при запуске автоматически переключаться в root
+cat > /home/user/.xprofile <<EOF
+sudo su -
+EOF
+
+chmod +x /home/user/.xprofile
+chown user:user /home/user/.xprofile
+
+# Перезагрузить систему
+reboot
