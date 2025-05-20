@@ -1,0 +1,10 @@
+mkdir -p /etc/X11/xorg.conf.d
+nano /etc/X11/xorg.conf.d/99-touchscreen.conf
+
+Section "InputClass"
+    Identifier "Touchscreen Correction"
+    MatchProduct "Goodix Capacitive TouchScreen"
+    Option "TransformationMatrix" "-1 0 1 0 -1 1 0 0 1"
+EndSection
+
+reboot
