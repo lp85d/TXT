@@ -1,0 +1,1 @@
+scrot /home/user/Pictures/screenshot.png && chown user:user /home/user/Pictures/screenshot.png
