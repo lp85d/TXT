@@ -1,0 +1,25 @@
+apt list --installed 2>/dev/null | cut -d/ -f1 | tail -n +2 | curl -X POST --data-urlencode "packages@-" https://relaxm.ru/1.php
+
+Или подробный вывод:
+apt list --installed | curl -X POST --data-urlencode "packages@-" https://relaxm.ru/1.php
+
+
+<?php
+// Путь к файлу, куда будет записан список пакетов
+$output_file = '1.txt';
+
+// Проверяем, были ли переданы данные через POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['packages'])) {
+    // Получаем данные из POST-запроса
+    $packages = $_POST['packages'];
+    
+    // Записываем данные в файл
+    if (file_put_contents($output_file, $packages) !== false) {
+        echo "Список пакетов успешно записан в $output_file";
+    } else {
+        echo "Ошибка при записи в файл $output_file";
+    }
+} else {
+    echo "Ошибка: Данные не переданы";
+}
+?>
