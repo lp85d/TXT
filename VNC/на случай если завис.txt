@@ -1,0 +1,33 @@
+Убей: vncserver -kill :1
+ps aux | grep Xtightvnc
+kill -9 23456
+Удаление мусора: rm -rf /tmp/.X1-lock /tmp/.X11-unix/X1
+
+Если проблема с шрифтами
+apt update
+apt install xfonts-base xfonts-75dpi
+
+Сбрось VNC-пароль: vncpasswd
+
+Проверь и поправь файл: nano ~/.vnc/xstartup
+#!/bin/sh
+unset SESSION_MANAGER
+unset DBUS_SESSION_BUS_ADDRESS
+startxfce4 &
+
+Сделай исполняемым: chmod +x ~/.vnc/xstartup
+Запусти сервер заново: vncserver :1
+
+root@gianttwig:~# vncpasswd
+Using password file /root/.vnc/passwd
+Password:
+Verify:
+Would you like to enter a view-only password (y/n)? y
+Password:
+Verify:
+root@gianttwig:~# nano ~/.vnc/xstartup
+root@gianttwig:~# root@gianttwig:~# vncserver :1
+New 'X' desktop is gianttwig.aeza.network:1
+Starting applications specified in /root/.vnc/xstartup
+Log file is /root/.vnc/gianttwig.aeza.network:1.log
+root@gianttwig:~#
