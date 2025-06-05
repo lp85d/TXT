@@ -1,5 +1,6 @@
 Убей: vncserver -kill :1
 ps aux | grep Xtightvnc
+Если не убился то:
 kill -9 23456
 Удаление мусора: rm -rf /tmp/.X1-lock /tmp/.X11-unix/X1
 
