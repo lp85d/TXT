@@ -1,0 +1,12 @@
+apt install autocutsel
+nano ~/.vnc/xstartup
+
+#!/bin/sh
+autocutsel -fork
+xrdb $HOME/.Xresources
+startxfce4 &
+
+chmod +x ~/.vnc/xstartup
+
+vncserver -kill :1
+vncserver :1
