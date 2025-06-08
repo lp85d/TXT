@@ -2,3 +2,25 @@ ps aux | grep -i vnc
 
 root      396735  0.9  0.7  84532 29820 pts/2    S    07:44   0:08 Xtightvnc :1 -desktop X -auth /root/.Xauthority -geometry 1024x768 -depth 24 -rfbwait 120000 -rfbauth /root/.vnc/passwd -rfbport 5901 -fp /usr/share/fonts/X11/misc/,/usr/share/fonts/X11/Type1/,/usr/share/fonts/X11/75dpi/,/usr/share/fonts/X11/100dpi/ -co /etc/X11/rgb
 root      397131  0.0  0.0   6336  2164 pts/2    S+   07:59   0:00 grep -i vnc
+
+
+и вот как я решил проблему с кодировкой в буфере обмена:
+
+Я столкнулся с проблемой синхронизации буфера обмена между Windows 11 (RealVNC Viewer) и Debian 12 с XtightVNC сервером и XFCE.
+
+Пуск → Параметры → Время и язык → Язык и регион → Административные языковые параметры → Изменить язык системы → Включите "Использовать Юникод (UTF-8) для поддержки языков по всему миру".
+
+#!/bin/sh
+unset SESSION_MANAGER
+unset DBUS_SESSION_BUS_ADDRESS
+[ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
+xsetroot -solid grey
+export LANG=ru_RU.UTF-8
+export LC_ALL=ru_RU.UTF-8
+autocutsel -fork &
+vncconfig -nowin &
+startxfce4 &
+
+chmod +x ~/.vnc/xstartup
+vncserver -kill :1
+vncserver :1
