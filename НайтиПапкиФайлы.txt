@@ -23,3 +23,7 @@ python -m pip install opencv-python websocket-client numpy
 ~ $ alias dir='pwd'
 ~ $ dir
 /data/data/com.termux/files/home
+
+
+передать файл:
+scp root@77.239.119.134:/root/win10.ovpn C:/win10.ovpn
