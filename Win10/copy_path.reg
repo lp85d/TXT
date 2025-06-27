@@ -1,0 +1,7 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\*\shell\CopyPath]
+@="Копировать путь"
+
+[HKEY_CLASSES_ROOT\*\shell\CopyPath\command]
+@="cmd /c echo %1 | clip"
