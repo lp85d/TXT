@@ -1,7 +1,7 @@
 Windows Registry Editor Version 5.00
 
 [HKEY_CLASSES_ROOT\*\shell\CopyPath]
-@="📄 Копировать путь"
+@="Копировать путь"
 "Icon"="shell32.dll,-16762"
 
 [HKEY_CLASSES_ROOT\*\shell\CopyPath\command]
