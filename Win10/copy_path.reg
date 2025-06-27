@@ -5,4 +5,4 @@ Windows Registry Editor Version 5.00
 "Icon"="shell32.dll,-16762"
 
 [HKEY_CLASSES_ROOT\*\shell\CopyPath\command]
-@="cmd /c echo %1 | clip"
+@="cmd /c <nul set /p=\"%1\"|clip"
