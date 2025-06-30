@@ -23,6 +23,9 @@ python -m pip install opencv-python websocket-client numpy
 ~ $ alias dir='pwd'
 ~ $ dir
 /data/data/com.termux/files/home
+nano ~/.bashrc
+alias cls='clear'
+source ~/.bashrc
 
 
 передать файл:
