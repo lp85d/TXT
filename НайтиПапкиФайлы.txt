@@ -26,7 +26,7 @@ python -m pip install opencv-python websocket-client numpy
 nano ~/.bashrc
 alias cls='clear'
 source ~/.bashrc
-
+для Windows doskey cat=type $*
 
 передать файл:
 scp root@77.239.119.134:/root/win10.ovpn C:/win10.ovpn
