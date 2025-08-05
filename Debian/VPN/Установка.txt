@@ -1,1 +1,14 @@
 nano setup_vless_reality.sh
+chmod +x setup_vless_reality.sh
+./setup_vless_reality.sh
+cat /root/vless_profile.txt
+journalctl -u xray -f
+netstat -tuln | grep 443
+systemctl restart xray
+
+nano /usr/local/etc/xray/config.json
+systemctl restart xray
+
+uuidgen
+nano /usr/local/etc/xray/config.json
+systemctl restart xray
