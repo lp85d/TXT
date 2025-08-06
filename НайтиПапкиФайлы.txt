@@ -1,5 +1,6 @@
 dir /s /b
 dir /s /b *.exe
+dir /s /p         Вывести список файлов и содержимое dir /s /p
 dir "C:\Program Files (x86)\Windows Kits" /s /b *.exe
 CLS
 dir /s /b "C:\Users\user\Desktop\AndroidUiRenderer" > "C:\Users\user\Desktop\AndroidUiRenderer\files_path.txt"
