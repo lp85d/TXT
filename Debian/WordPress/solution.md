@@ -15,3 +15,12 @@ a2enmod rewrite
 a2ensite wordpress.conf
 systemctl restart apache2
 rm latest.zip
+
+
+echo '<VirtualHost *:80>
+    DocumentRoot /var/www/html/wordpress
+    <Directory /var/www/html/wordpress>
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>' > /etc/apache2/sites-available/wordpress.conf && a2dissite 000-default.conf && a2ensite wordpress.conf && systemctl restart apache2
