@@ -24,3 +24,11 @@ echo '<VirtualHost *:80>
         Require all granted
     </Directory>
 </VirtualHost>' > /etc/apache2/sites-available/wordpress.conf && a2dissite 000-default.conf && a2ensite wordpress.conf && systemctl restart apache2
+
+mysql
+
+CREATE DATABASE wordpress CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE USER 'wp_user'@'localhost' IDENTIFIED BY 'strongpassword';
+GRANT ALL PRIVILEGES ON wordpress.* TO 'wp_user'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
