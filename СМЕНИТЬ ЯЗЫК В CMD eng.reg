@@ -7,7 +7,8 @@ Windows Registry Editor Version 5.00
 Правый клик на рабочем столе → Создать → Ярлык
 Вставь:
 
-powershell -Command "Set-WinUserLanguageList en-US -Force; Start-Process cmd -WorkingDirectory 'C:\Users\user\Desktop' -Verb RunAs"
+powershell -Command "Set-WinUserLanguageList en-US -Force; Start-Process cmd -ArgumentList '/k cd /d C:\Users\user\Desktop' -Verb RunAs"
 
 Нажми "Далее", дай имя, например: CMD Админ (EN)
 Готово!
+
