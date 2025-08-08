@@ -3,3 +3,11 @@ Windows Registry Editor Version 5.00
 [HKEY_CURRENT_USER\Keyboard Layout\Preload]
 "1"="00000409"  ; Английский (США)
 "2"="00000419"  ; Русский
+
+Правый клик на рабочем столе → Создать → Ярлык
+Вставь:
+
+powershell -Command "Set-WinUserLanguageList en-US -Force; Start-Process cmd -WorkingDirectory 'C:\Users\user\Desktop' -Verb RunAs"
+
+Нажми "Далее", дай имя, например: CMD Админ (EN)
+Готово!
