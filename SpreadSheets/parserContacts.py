@@ -1,4 +1,5 @@
-import base64 as O00OO0,logging as O0OO0O,pandas as O00O0O
+import base64
+import logging as O0OO0O,pandas as O00O0O
 from selenium import webdriver as O00OOO
 from selenium.webdriver.chrome.service import Service as O0O0OO
 from webdriver_manager.chrome import ChromeDriverManager as O0O00O
