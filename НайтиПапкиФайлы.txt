@@ -35,3 +35,6 @@ scp root@77.239.119.134:/root/win10.ovpn C:/win10.ovpn
 Поиск по GitHub
 https://github.com/search?q=ZALIVKA+path%3A*.md&type=code
 https://github.com/search?q=ZALIVKA.py&type=code
+
+Компьютер\HKEY_CLASSES_ROOT\*\shell\CopyPath\command
+cmd /c <nul set /p="%1"|clip
