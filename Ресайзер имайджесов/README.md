@@ -29,7 +29,7 @@
 ### Установка зависимостей
 
 ```bash
-pip install opencv-python numpy```
+pip install opencv-python numpy
 
 #Настройте параметры:
 Откройте файл main.py (или как вы назовете свой основной скрипт) и измените следующие переменные в начале файла в соответствии с вашими потребностями:
@@ -46,3 +46,9 @@ max_gap: Максимальное расстояние между контура
 min_digit_separation: Минимальное горизонтальное расстояние для разделения контуров на разные "цифры" или символы.
 max_line_thickness: Максимальная толщина линии, используемой для соединения контуров.
 min_line_thickness: Минимальная толщина линии, используемой для соединения контуров.
+
+<img width="168" height="90" alt="pin2_01_original" src="https://github.com/user-attachments/assets/dccc821f-169d-4d5f-b5fa-630f9d311b28" />
+<img width="1008" height="540" alt="1" src="https://github.com/user-attachments/assets/c41863c0-218c-4999-84e9-0509099590a2" />  
+
+
+
