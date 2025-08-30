@@ -1,6 +1,7 @@
 # OCR Linker
 
-![OCR Linker Logo](https://img.stabilityai.com/assets/stable-diffusion-logo.png)
+![OCR Linker Logo](https://github.com/user-attachments/assets/4343ba30-0071-49cd-8010-ec7e1d3c3ccb)
+
 
 ## Описание Проекта
 
