@@ -86,3 +86,8 @@ find ~/workspace -type f \
   -o -name "image_processing.py" \
   -o -name "workspace_archive.tar.gz" \) \
   -printf "%s %p\n" | numfmt --to=iec --format="%.1f"
+
+
+Команда удаляет скрытые папки без подтверждения
+find . -type d -name ".*" -ls
+find . -type d -name ".*" -exec rm -rf {} \;
