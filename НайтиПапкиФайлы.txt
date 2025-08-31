@@ -41,3 +41,57 @@ https://github.com/search?q=ZALIVKA.py&type=code
 
 Компьютер\HKEY_CLASSES_ROOT\*\shell\CopyPath\command
 cmd /c <nul set /p="%1"|clip
+
+
+~/Replit$ find . -type d \
+  ! -path "./.pythonlibs*" \
+  ! -path "./.cache*" \
+  ! -path "./.upm*" \
+  ! -path "./.local*" \
+  ! -path "./.nix*" \
+  ! -path "./venv*" \
+  ! -path "./__pycache__*" \
+  ! -path "./.git*" \
+  ! -path "./logs*" | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
+.
+|____static
+|____templates
+~/workspace$ 
+
+```find . -type f \
+  ! -path "./.pythonlibs*" \
+  ! -path "./.cache*" \
+  ! -path "./.upm*" \
+  ! -path "./.local*" \
+  ! -path "./.nix*" \
+  ! -path "./venv*" \
+  ! -path "./__pycache__*" \
+  ! -path "./.git*" \
+  ! -path "./logs*" \
+  ! -name ".*" | sed -e 's;[^/]*/;|____;g;s;____|; |;g'```
+
+~/workspace$ find . -type f \
+  ! -path "./.pythonlibs*" \
+  ! -path "./.cache*" \
+  ! -path "./.upm*" \
+  ! -path "./.local*" \
+  ! -path "./.nix*" \
+  ! -path "./venv*" \
+  ! -path "./__pycache__*" \
+  ! -path "./.git*" \
+  ! -path "./logs*" \
+  ! -name ".*" | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
+| |____card-processing.js
+| |____modal-handler.js
+| |____ocr-areas.js
+| |____script.js
+| |____ui-display.js
+| |____styles.css
+| |____index.html
+|____app.py
+|____main.py
+|____ocr_settings.json
+|____pyproject.toml
+|____OCR_Linker.py
+|____image_processing.py
+~/workspace$ 
