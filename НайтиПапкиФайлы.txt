@@ -70,28 +70,19 @@ find . -type f \
   ! -path "./logs*" \
   ! -name ".*" | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 
-~/workspace$ find . -type f \
-  ! -path "./.pythonlibs*" \
-  ! -path "./.cache*" \
-  ! -path "./.upm*" \
-  ! -path "./.local*" \
-  ! -path "./.nix*" \
-  ! -path "./venv*" \
-  ! -path "./__pycache__*" \
-  ! -path "./.git*" \
-  ! -path "./logs*" \
-  ! -name ".*" | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
-| |____card-processing.js
-| |____modal-handler.js
-| |____ocr-areas.js
-| |____script.js
-| |____ui-display.js
-| |____styles.css
-| |____index.html
-|____app.py
-|____main.py
-|____ocr_settings.json
-|____pyproject.toml
-|____OCR_Linker.py
-|____image_processing.py
-~/workspace$ 
+find ~/workspace -type f \
+  \( -name "card-processing.js" \
+  -o -name "modal-handler.js" \
+  -o -name "ocr-areas.js" \
+  -o -name "script.js" \
+  -o -name "ui-display.js" \
+  -o -name "styles.css" \
+  -o -name "index.html" \
+  -o -name "main.py" \
+  -o -name "ocr_settings.json" \
+  -o -name "pyproject.toml" \
+  -o -name "OCR_Linker.py" \
+  -o -name "app.py" \
+  -o -name "image_processing.py" \
+  -o -name "workspace_archive.tar.gz" \) \
+  -printf "%s %p\n" | numfmt --to=iec --format="%.1f"
