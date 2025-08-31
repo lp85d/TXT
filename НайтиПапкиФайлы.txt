@@ -1,6 +1,9 @@
 find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 find . -type d -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 
+Отправить на обменник с консоли:
+curl -F 'reqtype=fileupload' -F 'fileToUpload=@./workspace_archive.tar.gz' https://catbox.moe/user/api.php
+
 dir /s /b
 dir /s /b *.exe
 dir /s /p         Вывести список файлов и содержимое for %f in (*.*) do type "%f"
