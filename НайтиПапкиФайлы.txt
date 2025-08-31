@@ -58,7 +58,7 @@ cmd /c <nul set /p="%1"|clip
 |____templates
 ~/workspace$ 
 
-```find . -type f \
+find . -type f \
   ! -path "./.pythonlibs*" \
   ! -path "./.cache*" \
   ! -path "./.upm*" \
@@ -68,7 +68,7 @@ cmd /c <nul set /p="%1"|clip
   ! -path "./__pycache__*" \
   ! -path "./.git*" \
   ! -path "./logs*" \
-  ! -name ".*" | sed -e 's;[^/]*/;|____;g;s;____|; |;g'```
+  ! -name ".*" | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 
 ~/workspace$ find . -type f \
   ! -path "./.pythonlibs*" \
