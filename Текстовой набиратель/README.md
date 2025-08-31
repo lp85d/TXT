@@ -31,5 +31,5 @@ pip install keyboard pywin32
 3. Переключитесь в окно, куда нужно печатать.
 4. Дождитесь обратного отсчёта и автоматического ввода текста.
 
-```SEND_ENTER_AT_END = True```   # последняя строка с Enter  
-```SEND_ENTER_AT_END = False```  # последняя строка без Enter
+```SEND_ENTER_AT_END = True```   последняя строка с Enter  
+```SEND_ENTER_AT_END = False```  последняя строка без Enter
