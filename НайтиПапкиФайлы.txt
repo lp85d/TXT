@@ -4,6 +4,7 @@ find . -type d -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 Отправить на обменник с консоли:
 cd ~/workspace && tar -czvf workspace_archive.tar.gz static/* templates/index.html main.py ocr_settings.json pyproject.toml OCR_Linker.py app.py image_processing.py
 cd ~/workspace && tar -czf - static/* templates/index.html main.py ocr_settings.json pyproject.toml OCR_Linker.py app.py image_processing.py | gpg -c --passphrase "0000" > workspace_archive.tar.gz.gpg
+ls -lh workspace_archive.tar.gz   РЕПЛИТ НЕ УМЕЕТ ШИФРОВАТЬ !!!
 curl -F 'reqtype=fileupload' -F 'fileToUpload=@./workspace_archive.tar.gz' https://catbox.moe/user/api.php
 
 dir /s /b
