@@ -8,6 +8,9 @@ ls -lh workspace_archive.tar.gz   РЕПЛИТ НЕ УМЕЕТ ШИФРОВАТ�
 curl -F 'reqtype=fileupload' -F 'fileToUpload=@./workspace_archive.tar.gz' https://catbox.moe/user/api.php
 
 dir /s /b
+Синоним для Windows
+doskey ls=dir /s /b $*
+
 dir /s /b *.exe
 dir /s /p         Вывести список файлов и содержимое for %f in (*.*) do type "%f"
 dir "C:\Program Files (x86)\Windows Kits" /s /b *.exe
