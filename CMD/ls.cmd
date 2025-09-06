@@ -1,83 +1,102 @@
 @echo off
-setlocal enabledelayedexpansion
+setlocal EnableExtensions EnableDelayedExpansion
 
 :: ==============================
 :: ls.cmd - простой аналог ls
 :: ==============================
-:: Опции:
-::   (без аргументов)   - показать файлы и папки текущей папки (верхний уровень)
-::   /s                 - рекурсивный список всех файлов и папок
-::   /d                 - показать только папки
-::   /f                 - показать только файлы
-::   /l                 - подробный режим (дата, время, размер)
-::   маска (например *.exe) - фильтровать вывод по маске (только текущая папка)
-::   можно комбинировать: ls /s /l *.exe
-:: ==============================
 
-set "recurse="
-set "showDirs="
-set "showFiles="
-set "longMode="
-set "mask=*"
+set "LS_RECURSE="
+set "LS_SHOWDIRS="
+set "LS_SHOWFILES="
+set "LS_LONG="
+set "LS_SHOWSIZE="
+set "LS_MASK=*"
 
-if "%~1"=="/?"  goto help
-if "%~1"=="-h"  goto help
+if /i "%~1"=="/?"  goto :help
+if /i "%~1"=="-h"  goto :help
 
 :parse_args
-if "%~1"=="" goto run
-if /i "%~1"=="/s" set "recurse=1" & shift & goto parse_args
-if /i "%~1"=="/d" set "showDirs=1" & shift & goto parse_args
-if /i "%~1"=="/f" set "showFiles=1" & shift & goto parse_args
-if /i "%~1"=="/l" set "longMode=1" & shift & goto parse_args
-set "mask=%~1"
+if "%~1"=="" goto :run
+if /i "%~1"=="/s" set "LS_RECURSE=1" & shift & goto :parse_args
+if /i "%~1"=="/d" set "LS_SHOWDIRS=1" & shift & goto :parse_args
+if /i "%~1"=="/f" set "LS_SHOWFILES=1" & shift & goto :parse_args
+if /i "%~1"=="/l" set "LS_LONG=1" & shift & goto :parse_args
+if /i "%~1"=="/v" set "LS_SHOWSIZE=1" & shift & goto :parse_args
+set "LS_MASK=%~1"
 shift
-goto parse_args
+goto :parse_args
 
 :run
-if defined recurse (
+if defined LS_RECURSE (
     echo [Рекурсивный список]
-    for /r /d %%D in (*) do if not defined showFiles call :printEntry "%%D" dir
-    for /r %%F in (%mask%) do if not exist "%%F\" if not defined showDirs call :printEntry "%%F" file
+    for /r /d %%D in (*) do if not defined LS_SHOWFILES call :printEntry "%%~fD" dir
+    for /r %%F in (%LS_MASK%) do if not exist "%%F\" if not defined LS_SHOWDIRS call :printEntry "%%~fF" file
 ) else (
     echo [Текущая папка]
-    :: сначала папки
-    for /d %%D in (*) do if not defined showFiles call :printEntry "%%D" dir
-    :: потом файлы
-    for %%F in (%mask%) do if not exist "%%F\" if not defined showDirs call :printEntry "%%F" file
+    for /d %%D in (*) do if not defined LS_SHOWFILES call :printEntry "%%~fD" dir
+    for %%F in (%LS_MASK%) do if not exist "%%F\" if not defined LS_SHOWDIRS call :printEntry "%%~fF" file
 )
 exit /b
 
 :printEntry
-set "path=%~1"
-set "type=%~2"
-if defined longMode (
-    for %%I in ("%path%") do (
-        set "size=%%~zI"
-        set "date=%%~tI"
-        if "%type%"=="dir" (
-            echo !date!    <DIR>          \%%~nxI
+set "LS_ENTRY=%~1"
+set "LS_KIND=%~2"
+
+for %%I in ("%LS_ENTRY%") do (
+    set "LS_SIZE=%%~zI"
+    set "LS_DATE=%%~tI"
+    set "LS_NAME=%%~nxI"
+)
+
+if defined LS_LONG (
+    if /i "%LS_KIND%"=="dir" (
+        if defined LS_SHOWSIZE (
+            call :getDirSize "%LS_ENTRY%"
+            echo !LS_DATE!    [DIR] !LS_DIRSIZE! bytes   \!LS_NAME!
         ) else (
-            echo !date!    !size! bytes   %%~nxI
+            echo !LS_DATE!    ^<DIR^>          \!LS_NAME!
         )
+    ) else (
+        echo !LS_DATE!    !LS_SIZE! bytes   !LS_NAME!
     )
 ) else (
-    if "%type%"=="dir" (
-        echo \%~nx1
+    if /i "%LS_KIND%"=="dir" (
+        if defined LS_SHOWSIZE (
+            call :getDirSize "%LS_ENTRY%"
+            echo \!LS_NAME!  [!LS_DIRSIZE! bytes]
+        ) else (
+            echo \!LS_NAME!
+        )
     ) else (
-        echo %~nx1
+        if defined LS_SHOWSIZE (
+            echo !LS_NAME! [!LS_SIZE! bytes]
+        ) else (
+            echo !LS_NAME!
+        )
     )
 )
+exit /b
+
+:getDirSize
+set "LS_DIRSIZE="
+for /f "usebackq delims=" %%S in (`powershell -NoProfile -Command ^
+  "(Get-ChildItem -LiteralPath '%~1' -Force -Recurse -File | Measure-Object -Sum Length).Sum"`) do set "LS_DIRSIZE=%%S"
+if not defined LS_DIRSIZE set "LS_DIRSIZE=0"
 exit /b
 
 :help
 echo.
 echo Использование: ls [опции] [маска]
-echo.
-echo   (без аргументов)   - файлы и папки текущей папки
-echo   /s                 - рекурсивный список
-echo   /d                 - только папки
-echo   /f                 - только файлы
-echo   /l                 - подробный режим (дата, время, размер)
-echo   маска (например *.exe) - фильтр по имени
+echo   /s  рекурсивный список
+echo   /d  только папки
+echo   /f  только файлы
+echo   /l  подробный режим (дата, время, размер)
+echo   /v  показывать вес папок и файлов (медленнее для папок)
+echo   маска, напр. *.exe
+echo Примеры:
+echo   ls
+echo   ls /v
+echo   ls /l /v
+echo   ls /s /l /v *.dll
 echo.
 exit /b
