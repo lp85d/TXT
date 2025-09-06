@@ -1,0 +1,21 @@
+:: 1. Снять обфускацию
+de4dot.exe "*.exe"
+
+:: создаст *-cleaned.exe
+
+:: 2. Декомпиляция в C#
+dnSpy.Console.exe "*-cleaned.exe" -o "*Dump" -l "C#"
+
+:: создаст папку *Dump с проектом
+
+de4dot.exe
+Этот инструмент нужен для снятия обфускации с .NET-программ 4.5.0.0.
+dnSpy.Console.exe
+Это инструмент для декомпиляции .NET-сборок (получения кода на C#)
+
+dnSpy.Console.exe ^
+  "*-cleaned.exe" ^
+  -o "*Dump" ^
+  -l "C#"
+
+Готово \*Dump
