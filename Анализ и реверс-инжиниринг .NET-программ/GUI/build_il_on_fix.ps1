@@ -67,7 +67,7 @@ function Apply-Enhanced-On-Patch([string]$text) {
         param($match)
         $script:totalRepl++
         return "'" + $match.Groups[1].Value + "'"
-    }, [System.Text.RegularExpressions.RegexOptions)::IgnoreCase)
+    }, [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
     
     # 6. Исправление stfld инструкций: stfld type 'Ln/on'::field  
     $pattern6 = "(?<=stfld\s+[^\r\n]*?\s)(?<!')\b([\w\.\-\+<>/]+/on)(?=::)"
