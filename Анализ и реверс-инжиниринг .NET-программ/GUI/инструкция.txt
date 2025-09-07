@@ -1,3 +1,6 @@
 Выбираем файл и выбираем IL затем экспорт и готово
 Так как команда "C:\Windows\Microsoft.NET\Framework\v4.0.30319\ilasm.exe" C.il /exe /output=Laitis-rebuilt.exe находит ошибки
-Поэтому собрал C:\Users\user\Desktop\Laitis-cleaned IL\build_il.ps1
+Поэтому собрал C:\Users\user\Desktop\Laitis-cleaned IL\build_il_on_fix.ps1
+cd "C:\Users\user\Desktop\Laitis-cleaned IL"
+Set-ExecutionPolicy Bypass -Scope Process -Force
+.\build_il_on_fix.ps1
