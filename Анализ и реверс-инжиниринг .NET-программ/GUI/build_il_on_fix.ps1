@@ -11,19 +11,25 @@ $start = Get-Date
 $tries = 0
 
 function Apply-On-Patch([string]$text) {
-    # 1) Quote occurrences like:  Ln/on::field  =>  'Ln/on'::field
+    # 1) Ln/on::field  =>  'Ln/on'::field
     $text = [regex]::Replace($text,
         '([^\s:]+/on)::',
         { param($m) "'" + $m.Groups[1].Value + "'::" })
 
-    # 2) Quote ".class ... beforefieldinit on" -> ".class ... beforefieldinit 'on'"
+    # 2) ".class ... beforefieldinit on" -> ".class ... beforefieldinit 'on'"
     $text = [regex]::Replace($text,
         '(\.class\b[^\r\n]*?\bbeforefieldinit\s+)(on)\b',
         { param($m) $m.Groups[1].Value + "'" + $m.Groups[2].Value + "'" },
         [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
 
+    # 3) Generic args: valuetype Ln/on  ->  valuetype 'Ln/on'
+    $text = [regex]::Replace($text,
+        '(valuetype\s+)([^\s,<>]+/on)(?=[\s,>])',
+        { param($m) $m.Groups[1].Value + "'" + $m.Groups[2].Value + "'" })
+
     return $text
 }
+
 
 while ($tries -lt $maxTries) {
     $tries++
