@@ -16,6 +16,10 @@ Laitis_Dump_IL → IL-код.
  --output "C:\Users\user\Downloads\Laitis_Dump_IL" ^
  --language IL
 
+более предпочтительно:
+"C:\Users\user\Downloads\dnSpy\dnSpy.Console.exe" save --assembly "C:\Users\user\Downloads\Laitis.exe" --output "C:\Users\user\Downloads\Laitis_Dump_IL" --language IL
+
+
 Дальше шаги:
 У тебя появится папка Laitis_Dump_IL с .il и .res файлами.
 Чтобы собрать обратно:
