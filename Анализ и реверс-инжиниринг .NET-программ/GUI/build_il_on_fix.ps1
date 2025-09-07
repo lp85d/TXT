@@ -73,11 +73,10 @@ while ($tries -lt $maxTries) {
         $fixed | Set-Content -Path $src -Encoding UTF8
 
         Write-Host "Re-running ilasm..."
-        # loop continues: will run ilasm on next loop iteration
     }
 
     # timeout
-    if ((Get-Date) - $start).TotalSeconds -ge $timeout {
+    if (((Get-Date) - $start).TotalSeconds -ge $timeout) {
         Write-Host "⛔ Timeout ($timeout seconds) reached. Stopping."
         break
     }
