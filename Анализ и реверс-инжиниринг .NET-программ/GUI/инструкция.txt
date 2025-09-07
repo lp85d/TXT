@@ -4,3 +4,4 @@
 cd "C:\Users\user\Desktop\Laitis-cleaned IL"
 Set-ExecutionPolicy Bypass -Scope Process -Force
 .\build_il_on_fix.ps1
+И .ps1 не помог, надо всё руками править или ждать
