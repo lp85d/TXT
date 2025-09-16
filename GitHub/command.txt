@@ -11,3 +11,5 @@ git branch -m main
 
 # Принудительно отправляем на GitHub (ВНИМАНИЕ: перезапишет историю!)
 git push -f origin main
+
+oeAGwG+kzmpqXuzTdSUJxfbjR4vnREPrMhJMMkkAVrjBmfkstJffi+B2/dFYtCOU/Ara8boPdx5655yL0BmiJKF8EOS/p+QtGQimzE3b8jWC2tdNeZ4xQuuk0rtWjnBjZGjWXV+kZydx3aUIOZybrEYdYVJdqP+ZQpBdUeRhXxH88S8qmb4IMdwpe8wA
