@@ -1,0 +1,15 @@
+```
+cd C:\Projects\Android
+
+# Создаём новый орфан-коммит (без истории)
+git checkout --orphan temp_branch
+git add -A
+git commit -m "Initial commit (clean repository)"
+
+# Удаляем старую ветку main и переименовываем временную
+git branch -D main
+git branch -m main
+
+# Принудительно отправляем на GitHub (ВНИМАНИЕ: перезапишет историю!)
+git push -f origin main
+```
