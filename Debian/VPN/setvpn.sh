@@ -1,18 +1,20 @@
 #!/bin/bash
 
 # -----------------------------
-# Generate UUID and X25519 keys
+# Generate UUID
 # -----------------------------
 UUID=$(/usr/local/bin/xray uuid)
-KEYS=$(/usr/local/bin/xray x25519)
 
-# Extract private and public keys safely using grep and cut
-PRIVATE_KEY=$(echo "$KEYS" | grep "Private key:" | cut -d ' ' -f 3)
-PUBLIC_KEY=$(echo "$KEYS" | grep "Public key:" | cut -d ' ' -f 3)
+# Generate X25519 keys manually using wg (WireGuard)
+if ! command -v wg &> /dev/null; then
+    apt-get update && apt-get install -y wireguard
+fi
+PRIVATE_KEY=$(wg genkey)
+PUBLIC_KEY=$(echo "$PRIVATE_KEY" | wg pubkey)
 
-# Check if keys were extracted
+# Check if keys were generated
 if [ -z "$PRIVATE_KEY" ] || [ -z "$PUBLIC_KEY" ]; then
-    echo "Error: Failed to extract PrivateKey or PublicKey"
+    echo "Error: Failed to generate PrivateKey or PublicKey"
     exit 1
 fi
 
@@ -23,9 +25,10 @@ SHORT_ID=$(openssl rand -hex 8)
 DOMAIN="joyfultank.aeza.network"
 
 # -----------------------------
-# Create Xray config directory if it doesn't exist
+# Create Xray config directory with proper permissions
 # -----------------------------
 mkdir -p /usr/local/etc/xray/
+chmod 755 /usr/local/etc/xray/
 
 # -----------------------------
 # Write Xray config
@@ -61,6 +64,12 @@ cat << EOF > /usr/local/etc/xray/config.json
   }]
 }
 EOF
+
+# Check if config was created
+if [ ! -f /usr/local/etc/xray/config.json ]; then
+    echo "Error: Failed to create config.json"
+    exit 1
+fi
 
 # -----------------------------
 # Restart Xray service
