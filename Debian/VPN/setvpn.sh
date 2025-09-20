@@ -1,4 +1,3 @@
-```bash
 #!/bin/bash
 
 # -----------------------------
@@ -15,8 +14,8 @@ PUBLIC_KEY="uGoGgr77hBaEvROan6r2ve1pU8zb7nbvMZsw/m7zRWg="
 
 # Check if keys are set
 if [ -z "$PRIVATE_KEY" ] || [ -z "$PUBLIC_KEY" ]; then
-    echo "Error: PrivateKey or PublicKey not set"
-    exit 1
+   echo "Error: PrivateKey or PublicKey not set"
+   exit 1
 fi
 
 # Generate random ShortID
@@ -36,40 +35,40 @@ chmod 755 /usr/local/etc/xray/
 # -----------------------------
 cat << EOF > /usr/local/etc/xray/config.json
 {
-  "log": { "loglevel": "info" },
-  "inbounds": [{
-    "listen": "0.0.0.0",
-    "port": 443,
-    "protocol": "vless",
-    "settings": {
-      "clients": [{
-        "id": "$UUID"
-      }],
-      "decryption": "none"
-    },
-    "streamSettings": {
-      "network": "tcp",
-      "security": "reality",
-      "realitySettings": {
-        "show": false,
-        "dest": "$DOMAIN:443",
-        "xver": 0,
-        "serverNames": ["$DOMAIN"],
-        "privateKey": "$PRIVATE_KEY",
-        "shortIds": ["$SHORT_ID"]
-      }
-    }
-  }],
-  "outbounds": [{
-    "protocol": "freedom"
-  }]
+ "log": { "loglevel": "info" },
+ "inbounds": [{
+   "listen": "0.0.0.0",
+   "port": 443,
+   "protocol": "vless",
+   "settings": {
+     "clients": [{
+       "id": "$UUID"
+     }],
+     "decryption": "none"
+   },
+   "streamSettings": {
+     "network": "tcp",
+     "security": "reality",
+     "realitySettings": {
+       "show": false,
+       "dest": "$DOMAIN:443",
+       "xver": 0,
+       "serverNames": ["$DOMAIN"],
+       "privateKey": "$PRIVATE_KEY",
+       "shortIds": ["$SHORT_ID"]
+     }
+   }
+ }],
+ "outbounds": [{
+   "protocol": "freedom"
+ }]
 }
 EOF
 
 # Check if config was created
 if [ ! -f /usr/local/etc/xray/config.json ]; then
-    echo "Error: Failed to create config.json"
-    exit 1
+   echo "Error: Failed to create config.json"
+   exit 1
 fi
 
 # -----------------------------
