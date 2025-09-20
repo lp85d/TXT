@@ -1,20 +1,7 @@
-#!/bin/bash
-
 # -----------------------------
-# Generate UUID and X25519 keys
+# Create Xray config directory if it doesn't exist
 # -----------------------------
-UUID=$(/usr/local/bin/xray uuid)
-KEYS=$(/usr/local/bin/xray x25519)
-
-# Extract private and public keys safely using sed
-PRIVATE_KEY=$(echo "$KEYS" | sed -n 's/^Private key: //p')
-PUBLIC_KEY=$(echo "$KEYS" | sed -n 's/^Public key: //p')
-
-# Generate random ShortID
-SHORT_ID=$(openssl rand -hex 8)
-
-# Domain
-DOMAIN="joyfultank.aeza.network"
+mkdir -p /usr/local/etc/xray/
 
 # -----------------------------
 # Write Xray config
@@ -50,21 +37,3 @@ cat << EOF > /usr/local/etc/xray/config.json
   }]
 }
 EOF
-
-# -----------------------------
-# Restart Xray service
-# -----------------------------
-systemctl restart xray
-
-# -----------------------------
-# Output connection data
-# -----------------------------
-echo ""
-echo "=== Connection data ==="
-echo "UUID:       $UUID"
-echo "PrivateKey: $PRIVATE_KEY"
-echo "PublicKey:  $PUBLIC_KEY"
-echo "ShortID:    $SHORT_ID"
-echo ""
-echo "VLESS link:"
-echo "vless://${UUID}@${DOMAIN}:443?security=reality&encryption=none&pbk=${PUBLIC_KEY}&type=tcp&sni=${DOMAIN}&sid=${SHORT_ID}#${DOMAIN}"
