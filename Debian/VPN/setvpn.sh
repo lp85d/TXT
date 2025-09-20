@@ -1,20 +1,21 @@
+```bash
 #!/bin/bash
 
 # -----------------------------
-# Generate UUID
+# Install required packages
+# -----------------------------
+apt-get update && apt-get install -y wireguard
+
+# -----------------------------
+# Generate UUID and set fixed keys
 # -----------------------------
 UUID=$(/usr/local/bin/xray uuid)
+PRIVATE_KEY="0IGs6kuXsWu21FPts6/swP7b+bhKmSk1dJcCDe3xzFE="
+PUBLIC_KEY="uGoGgr77hBaEvROan6r2ve1pU8zb7nbvMZsw/m7zRWg="
 
-# Generate X25519 keys manually using wg (WireGuard)
-if ! command -v wg &> /dev/null; then
-    apt-get update && apt-get install -y wireguard
-fi
-PRIVATE_KEY=$(wg genkey)
-PUBLIC_KEY=$(echo "$PRIVATE_KEY" | wg pubkey)
-
-# Check if keys were generated
+# Check if keys are set
 if [ -z "$PRIVATE_KEY" ] || [ -z "$PUBLIC_KEY" ]; then
-    echo "Error: Failed to generate PrivateKey or PublicKey"
+    echo "Error: PrivateKey or PublicKey not set"
     exit 1
 fi
 
@@ -72,8 +73,24 @@ if [ ! -f /usr/local/etc/xray/config.json ]; then
 fi
 
 # -----------------------------
-# Restart Xray service
+# Create systemd service for Xray
 # -----------------------------
+cat << EOF > /etc/systemd/system/xray.service
+[Unit]
+Description=Xray Service
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/xray -config /usr/local/etc/xray/config.json
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# Enable and start Xray service
+systemctl enable xray
 systemctl restart xray
 
 # -----------------------------
