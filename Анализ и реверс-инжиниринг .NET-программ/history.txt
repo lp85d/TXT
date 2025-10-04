@@ -1,0 +1,99 @@
+C:\Users\user>C:\Users\user\Downloads\Program.cs
+
+C:\Users\user>dotnet --version
+9.0.303
+
+C:\Users\user>dotnet new console -n MyApp
+Шаблон "Консольное приложение" успешно создан.
+
+Идет обработка действий после создания...
+Восстановление C:\Users\user\MyApp\MyApp.csproj:
+Восстановление выполнено.
+
+
+
+C:\Users\user>cd MyApp
+
+C:\Users\user\MyApp>move /Y "C:\Users\user\Downloads\Program.cs" .
+        1 file(s) moved.
+
+C:\Users\user\MyApp>dotnet run
+C:\Users\user\MyApp\Program.cs(1,7): error CS0246: Не удалось найти тип или имя пространства имен "dnlib" (возможно, отсутствует директива using или ссылка на сборку).
+C:\Users\user\MyApp\Program.cs(2,7): error CS0246: Не удалось найти тип или имя пространства имен "dnlib" (возможно, отсутствует директива using или ссылка на сборку).
+
+Ошибка сборки. Устраните ошибки сборки и повторите попытку.
+
+C:\Users\user\MyApp>dotnet add package dnlib
+
+Сборка успешно выполнено через 0,8 с
+info : При проверке цепочки сертификатов X.509 будет использоваться хранилище доверия по умолчанию, выбранное .NET для подписывания кода.
+info : При проверке цепочки сертификатов X.509 будет использоваться хранилище доверия по умолчанию, выбранное .NET для установки метки времени.
+info : Добавление PackageReference для пакета "dnlib" в проект "C:\Users\user\MyApp\MyApp.csproj".
+info :   GET https://api.nuget.org/v3/registration5-gz-semver2/dnlib/index.json
+info :   OK https://api.nuget.org/v3/registration5-gz-semver2/dnlib/index.json 636 мс
+info : Идет восстановление пакетов для C:\Users\user\MyApp\MyApp.csproj...
+info :   GET https://api.nuget.org/v3/vulnerabilities/index.json
+info :   OK https://api.nuget.org/v3/vulnerabilities/index.json 363 мс
+info :   GET https://api.nuget.org/v3-vulnerabilities/2025.09.20.05.25.56/vulnerability.base.json
+info :   GET https://api.nuget.org/v3-vulnerabilities/2025.09.20.05.25.56/2025.10.03.23.27.10/vulnerability.update.json
+info :   OK https://api.nuget.org/v3-vulnerabilities/2025.09.20.05.25.56/vulnerability.base.json 183 мс
+info :   OK https://api.nuget.org/v3-vulnerabilities/2025.09.20.05.25.56/2025.10.03.23.27.10/vulnerability.update.json 370 мс
+info : Пакет "dnlib" совместим со всеми указанными платформами в проекте "C:\Users\user\MyApp\MyApp.csproj".
+info : Ссылка PackageReference для пакета "dnlib" версии "4.5.0" добавлена в файл "C:\Users\user\MyApp\MyApp.csproj".
+info : Запись файла ресурсов на диск. Путь: C:\Users\user\MyApp\obj\project.assets.json
+log  : Восстановлен C:\Users\user\MyApp\MyApp.csproj (за 1,08 с).
+
+C:\Users\user\MyApp>dotnet run
+Метод заглушен: System.Void JF::.ctor(fGA) | Возвращает: System.Void
+Метод заглушен: System.Threading.Tasks.Task 0F::2F(System.Byte[],System.Threading.CancellationToken) | Возвращает: System.Threading.Tasks.Task
+Метод заглушен: System.Void 0F::CC() | Возвращает: System.Void
+Метод заглушен: System.Byte[] ng::Og(System.String) | Возвращает: System.Byte[]
+Метод заглушен: System.Byte[] Rg::Og(System.String) | Возвращает: System.Byte[]
+Метод заглушен: System.Void Ah::.ctor(System.Net.WebRequest,fGA) | Возвращает: System.Void
+Метод заглушен: System.Net.HttpWebRequest lh::Mh() | Возвращает: System.Net.HttpWebRequest
+Метод заглушен: System.Net.HttpWebRequest lh::nh() | Возвращает: System.Net.HttpWebRequest
+Метод заглушен: System.Void qh::.ctor(System.Net.WebRequest,fGA) | Возвращает: System.Void
+Метод заглушен: System.Void vh::CC(System.Boolean) | Возвращает: System.Void
+Метод заглушен: System.Byte[] Yh::Og(System.String) | Возвращает: System.Byte[]
+Метод заглушен: System.Byte[] zh::Og(System.String) | Возвращает: System.Byte[]
+Метод заглушен: System.Byte[] bH::Og(System.String) | Возвращает: System.Byte[]
+Метод заглушен: System.Byte[] dH::Og(System.String) | Возвращает: System.Byte[]
+Метод заглушен: System.Void Bi::Hi() | Возвращает: System.Void
+Метод заглушен: System.Void 3Q::ar(System.Object,System.EventArgs) | Возвращает: System.Void
+Метод заглушен: System.Void 3Q::br(System.Object,System.Net.DownloadProgressChangedEventArgs) | Возвращает: System.Void
+Метод заглушен: System.Void l7::L7(System.Exception,TX) | Возвращает: System.Void
+Метод заглушен: System.Void l7::m7(System.Net.WebException,TX) | Возвращает: System.Void
+Метод заглушен: System.Void pCA::rCA(Laitis.Common.Enums.HttpWebRequestMethod,System.String,System.String,fGA) | Возвращает: System.Void
+Метод заглушен: System.Net.HttpWebRequest pCA::RCA(System.String) | Возвращает: System.Net.HttpWebRequest
+Метод заглушен: System.Net.HttpWebRequest pCA::sCA(System.String) | Возвращает: System.Net.HttpWebRequest
+Метод заглушен: System.Void fGA::L7(System.Exception,TX) | Возвращает: System.Void
+Метод заглушен: System.Void fGA::m7(System.Net.WebException,TX) | Возвращает: System.Void
+Метод заглушен: System.Void EHA::Dispose() | Возвращает: System.Void
+Метод заглушен: System.Void bjA::Mn(System.String,System.String) | Возвращает: System.Void
+Метод заглушен: System.String wKA::IN(System.String) | Возвращает: System.String
+Метод заглушен: System.Void wKA::0KA(System.String) | Возвращает: System.Void
+Метод заглушен: System.IO.Stream wKA::9KA(System.Guid) | Возвращает: System.IO.Stream
+Метод заглушен: System.String wKA::alA(Laitis.Common.Requests.PublishRequest.PublishRequestPack) | Возвращает: System.String
+Метод заглушен: System.String wKA::AlA() | Возвращает: System.String
+Метод заглушен: Laitis.Common.Requests.AuthorizationResponse wKA::0e(System.String,System.String,System.String,System.Int32) | Возвращает: Laitis.Common.Requests.AuthorizationResponse
+Метод заглушен: System.Void wKA::blA(System.Net.WebException) | Возвращает: System.Void
+Метод заглушен: System.Void wKA::ClA(Laitis.Common.Model.SessionStatistic) | Возвращает: System.Void
+Метод заглушен: ME wKA::dlA(System.String) | Возвращает: ME
+Метод заглушен: ME wKA::DlA(System.String) | Возвращает: ME
+Файл сохранён: C:\Users\user\Downloads\Laitis_clean.exe
+Удалено ресурсов: 0, отключено методов: 36
+
+C:\Users\user\MyApp>dotnet publish -c Release -r win-x64 --self-contained true
+Восстановление завершено (14,4 с)
+  MyApp успешно выполнено (1,7 с) → bin\Release\net9.0\win-x64\publish\
+
+Сборка успешно выполнено через 16,8 с
+
+C:\Users\user\MyApp>dotnet publish -c Release -r win-x64 -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true
+Восстановление завершено (2,4 с)
+  MyApp успешно выполнено с предупреждениями (1) (10,0 с) → bin\Release\net9.0\win-x64\publish\
+    C:\Users\user\.nuget\packages\dnlib\4.5.0\lib\net6.0\dnlib.dll : warning IL2104: Assembly 'dnlib' produced trim warnings. For more information see https://aka.ms/il2104
+
+Сборка успешно выполнено с предупреждениями (1) через 13,1 с
+
+C:\Users\user\MyApp>
