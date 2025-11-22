@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Base64 Audio Repair & Download</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; max-width: 800px; margin: 0 auto; }
+        textarea { width: 100%; height: 150px; margin-bottom: 10px; font-family: monospace; font-size: 12px; }
+        .controls { margin-top: 15px; padding: 15px; border: 1px solid #ccc; background: #f9f9f9; border-radius: 5px;}
+        button { cursor: pointer; padding: 10px 20px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 4px; }
+        button:hover { background-color: #0056b3; }
+        button.secondary { background-color: #6c757d; }
+        button.secondary:hover { background-color: #545b62; }
+        input { padding: 8px; width: 200px; font-size: 14px; }
+        audio { vertical-align: middle; margin-left: 10px; width: 100%; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <h2>Base64: Починить и Скачать битую AAC</h2>
+    <p>Вставьте "битую" или длинную строку Base64:</p>
+    
+    <textarea id="base64Str" placeholder="Вставьте сюда Base64 строку..."></textarea>
+
+    <div class="controls">
+        <h3>1. Прослушать (с авто-исправлением)</h3>
+        <button class="secondary" onclick="playAudio()">▶ Загрузить в плеер</button>
+        <br>
+        <audio id="audioPlayer" controls></audio>
+    </div>
+
+    <div class="controls">
+        <h3>2. Скачать (Blob метод)</h3>
+        <input type="text" id="fileName" value="audio.mp3" placeholder="Имя файла">
+        <button onclick="downloadLargeFile()">💾 Скачать файл</button>
+    </div>
+
+    <script>
+        // Функция очистки мусора из строки (пробелы, переносы и т.д.)
+        function cleanBase64(input) {
+            // 1. Если есть заголовок data:..., отрезаем его, берем только то, что после запятой
+            if (input.includes(',')) {
+                input = input.split(',')[1];
+            }
+            // 2. Удаляем ВСЕ символы, которые не являются Base64 (оставляем только A-Z, a-z, 0-9, +, /, =)
+            return input.replace(/[^A-Za-z0-9+/=]/g, "");
+        }
+
+        function b64toBlob(b64Data, contentType='', sliceSize=512) {
+            const byteCharacters = atob(b64Data);
+            const byteArrays = [];
+
+            for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+                const slice = byteCharacters.slice(offset, offset + sliceSize);
+                const byteNumbers = new Array(slice.length);
+                for (let i = 0; i < slice.length; i++) {
+                    byteNumbers[i] = slice.charCodeAt(i);
+                }
+                const byteArray = new Uint8Array(byteNumbers);
+                byteArrays.push(byteArray);
+            }
+
+            const blob = new Blob(byteArrays, {type: contentType});
+            return blob;
+        }
+
+        function playAudio() {
+            const raw = document.getElementById('base64Str').value;
+            if (!raw) return alert("Вставьте строку!");
+
+            try {
+                const cleaned = cleanBase64(raw);
+                // Создаем Blob для плеера, чтобы не перегружать память ссылкой
+                const blob = b64toBlob(cleaned, 'audio/mpeg'); 
+                const blobUrl = URL.createObjectURL(blob);
+                
+                const player = document.getElementById('audioPlayer');
+                player.src = blobUrl;
+                player.play();
+            } catch (e) {
+                alert("Ошибка декодирования! Возможно строка слишком сильно повреждена.\n" + e.message);
+            }
+        }
+
+        function downloadLargeFile() {
+            const raw = document.getElementById('base64Str').value;
+            const fileName = document.getElementById('fileName').value || 'download.bin';
+
+            if (!raw) return alert("Поле пустое!");
+
+            try {
+                // 1. Чистим строку от "битых" символов
+                const cleaned = cleanBase64(raw);
+                
+                // 2. Конвертируем в бинарный Blob (это решает проблему скачивания больших файлов)
+                const blob = b64toBlob(cleaned, 'application/octet-stream');
+                
+                // 3. Создаем временную ссылку на Blob
+                const blobUrl = URL.createObjectURL(blob);
+                
+                const link = document.createElement('a');
+                link.href = blobUrl;
+                link.download = fileName;
+                document.body.appendChild(link);
+                link.click();
+                
+                // 4. Убираем мусор
+                document.body.removeChild(link);
+                URL.revokeObjectURL(blobUrl);
+                
+            } catch (e) {
+                alert("Не удалось создать файл. Проверьте целостность Base64.\nОшибка: " + e.message);
+            }
+        }
+    </script>
+</body>
+</html>
