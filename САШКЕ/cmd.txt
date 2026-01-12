@@ -1,0 +1,1 @@
+pyinstaller --onefile --windowed --collect-all barcode --collect-all PIL --collect-all reportlab C:\Users\user\Desktop\soft.py
