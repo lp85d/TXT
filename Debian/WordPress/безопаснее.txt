@@ -1,27 +1,24 @@
-cat > install-wordpress.sh << 'ENDSCRIPT'
-#!/bin/bash
-set -e
-
-echo "=== Установка WordPress с усиленной безопасностью ==="
-
-DB_PASSWORD=$(openssl rand -base64 32 | tr -d "=+/" | cut -c1-25)
-
-apt update
-apt install -y apache2 mariadb-server php php-mysql php-curl php-gd php-mbstring php-xml php-xmlrpc unzip ufw
-
-ufw allow 'Apache Full'
-ufw allow OpenSSH
+# Настройка файрвола
+ufw allow 80/tcp
+ufw allow 443/tcp
+ufw allow 22/tcp
 ufw --force enable
 
-systemctl enable apache2 mariadb
+# Запуск сервисов
 systemctl start apache2 mariadb
 
+# Генерация пароля
+DB_PASSWORD=$(openssl rand -base64 32 | tr -d "=+/" | cut -c1-25)
+echo "Пароль БД: $DB_PASSWORD"
+
+# Защита MySQL
 mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${DB_PASSWORD}';"
 mysql -uroot -p"${DB_PASSWORD}" -e "DELETE FROM mysql.user WHERE User='';"
 mysql -uroot -p"${DB_PASSWORD}" -e "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');"
 mysql -uroot -p"${DB_PASSWORD}" -e "DROP DATABASE IF EXISTS test;"
 mysql -uroot -p"${DB_PASSWORD}" -e "FLUSH PRIVILEGES;"
 
+# Создание БД WordPress
 mysql -uroot -p"${DB_PASSWORD}" << EOF
 CREATE DATABASE wordpress CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 CREATE USER 'wp_user'@'localhost' IDENTIFIED BY '${DB_PASSWORD}';
@@ -29,16 +26,19 @@ GRANT ALL PRIVILEGES ON wordpress.* TO 'wp_user'@'localhost';
 FLUSH PRIVILEGES;
 EOF
 
+# Скачивание WordPress
 cd /tmp
 wget -q https://wordpress.org/latest.zip
 unzip -q latest.zip
 rm -rf /var/www/html/wordpress
 mv wordpress /var/www/html/
 
+# Права
 chown -R www-data:www-data /var/www/html/wordpress
 find /var/www/html/wordpress/ -type d -exec chmod 750 {} \;
 find /var/www/html/wordpress/ -type f -exec chmod 640 {} \;
 
+# Конфигурация WordPress
 cp /var/www/html/wordpress/wp-config-sample.php /var/www/html/wordpress/wp-config.php
 SALTS=$(curl -sL https://api.wordpress.org/secret-key/1.1/salt/)
 
@@ -49,15 +49,16 @@ sed -i "s/password_here/${DB_PASSWORD}/" /var/www/html/wordpress/wp-config.php
 sed -i "/AUTH_KEY/,/NONCE_SALT/d" /var/www/html/wordpress/wp-config.php
 echo "$SALTS" >> /var/www/html/wordpress/wp-config.php
 
-cat >> /var/www/html/wordpress/wp-config.php << 'WPCONFIG'
+cat >> /var/www/html/wordpress/wp-config.php << 'EOF'
 define('DISALLOW_FILE_EDIT', true);
 define('WP_AUTO_UPDATE_CORE', true);
-WPCONFIG
+EOF
 
 chmod 640 /var/www/html/wordpress/wp-config.php
 chown www-data:www-data /var/www/html/wordpress/wp-config.php
 
-cat > /etc/apache2/sites-available/wordpress.conf << 'APACHECONF'
+# Apache конфигурация
+cat > /etc/apache2/sites-available/wordpress.conf << 'EOF'
 <VirtualHost *:80>
     ServerAdmin admin@localhost
     DocumentRoot /var/www/html/wordpress
@@ -72,60 +73,37 @@ cat > /etc/apache2/sites-available/wordpress.conf << 'APACHECONF'
         Require all denied
     </Files>
     
-    <Files .htaccess>
-        Require all denied
-    </Files>
-    
     ErrorLog ${APACHE_LOG_DIR}/wordpress_error.log
     CustomLog ${APACHE_LOG_DIR}/wordpress_access.log combined
 </VirtualHost>
-APACHECONF
+EOF
 
 a2enmod rewrite headers
 a2dissite 000-default.conf
 a2ensite wordpress.conf
 systemctl restart apache2
 
-rm -f /tmp/latest.zip
-
-cat > /root/.wordpress_credentials << CREDS
+# Сохранение паролей
+cat > /root/.wordpress_credentials << EOF
 ==========================================
-СОХРАНИТЕ ЭТИ ДАННЫЕ В БЕЗОПАСНОМ МЕСТЕ!
+СОХРАНИТЕ ЭТИ ДАННЫЕ!
 ==========================================
 
 MySQL Root Password: ${DB_PASSWORD}
+WordPress DB User: wp_user
 WordPress DB Password: ${DB_PASSWORD}
-
-Данные для подключения к БД:
-  Database: wordpress
-  User: wp_user
-  Password: ${DB_PASSWORD}
+Database: wordpress
 
 ==========================================
-ВАЖНО: Завершите установку WordPress через браузер!
-После установки удалите этот файл: rm /root/.wordpress_credentials
-==========================================
-CREDS
+EOF
 
 chmod 600 /root/.wordpress_credentials
-
-SERVER_IP=$(hostname -I | awk '{print $1}')
 
 echo ""
 echo "=========================================="
 echo "✓ WordPress установлен!"
 echo "=========================================="
-echo "Откройте в браузере: http://${SERVER_IP}"
+echo "Откройте: http://138.124.35.201"
 echo ""
-echo "Пароли сохранены в: /root/.wordpress_credentials"
-echo "Просмотр: cat /root/.wordpress_credentials"
-echo ""
-echo "РЕКОМЕНДАЦИИ:"
-echo "1. Завершите установку WordPress через браузер"
-echo "2. Установите плагин безопасности (Wordfence/Sucuri)"
-echo "3. Удалите файл паролей после сохранения"
+echo "Пароли: cat /root/.wordpress_credentials"
 echo "=========================================="
-ENDSCRIPT
-
-chmod +x install-wordpress.sh
-./install-wordpress.sh
