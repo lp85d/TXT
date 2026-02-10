@@ -16,7 +16,7 @@
 ## 🚀 Как использовать
 
 1. **Откройте сайт**, где есть элемент с классом `.p-chart` и вложенный `<canvas>`.  
-   Например: [https://github.com/lp85d/TXT/edit/main/Canvas.html](https://github.com/lp85d/TXT/blob/main/Canvas.html)
+   Например: (https://github.com/lp85d/TXT/blob/main/Canvas.html)
    ```html
    <div class="p-chart">
      <canvas></canvas>
